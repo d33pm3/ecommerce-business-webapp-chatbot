@@ -1,0 +1,77 @@
+# Secrets and local configuration
+.env
+.env.*
+*.local
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+id_rsa*
+id_ed25519*
+credentials*.json
+service-account*.json
+
+# Private prompts, source corpora, and vector data
+AGENTS.md
+.lovable/
+prompts/
+private-prompts/
+rag/
+corpus/
+embeddings/
+vector-store/
+vector_stores/
+*.faiss
+
+# Dependencies and package-manager caches
+node_modules/
+.npm/
+.yarn/
+.pnpm-store/
+
+# Builds and framework output
+dist/
+dist-ssr/
+dist-offline/
+.output/
+.vinxi/
+.tanstack/
+.nitro/
+.wrangler/
+
+# Test, analysis, and generated reports
+coverage/
+test-results/
+playwright-report/
+reports/
+screenshots/
+exports/
+*.lcov
+
+# Logs, caches, and local databases
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+.cache/
+.eslintcache
+*.db
+*.db-*
+*.sqlite
+*.sqlite3
+
+# Editor and operating-system files
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
