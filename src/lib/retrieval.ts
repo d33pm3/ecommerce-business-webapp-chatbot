@@ -212,6 +212,7 @@ export function answerQuestion(query: string, history: Turn[]): AnswerResult {
   const field = detectField(q);
   const filters = detectFilters(q);
 
+  // 1) Direct product match by id or name
   const named = matchByName(q);
   if (named) {
     let text = fieldAnswer(named, field);
@@ -221,6 +222,7 @@ export function answerQuestion(query: string, history: Turn[]): AnswerResult {
     return { text, sources: [named.id], focus: [named.id] };
   }
 
+  // 2) Follow-up: reuse last focus when the query adds no new material/stock filter
   const lastFocus = [...history].reverse().find((t) => t.focus && t.focus.length)?.focus ?? [];
   if (lastFocus.length && filters.materials.length === 0 && !filters.stock) {
     let scoped = CATALOGUE.filter((p) => lastFocus.includes(p.id));
@@ -237,6 +239,7 @@ export function answerQuestion(query: string, history: Turn[]): AnswerResult {
     }
   }
 
+  // 3) Filtered list
   if (filters.materials.length || filters.category || filters.stock) {
     let rows = CATALOGUE;
     for (const m of filters.materials) rows = rows.filter((p) => p.material.includes(m));
@@ -254,6 +257,7 @@ export function answerQuestion(query: string, history: Turn[]): AnswerResult {
     return listAnswer(rows, field, "Here is what the catalogue has");
   }
 
+  // 4) Whole catalogue request
   if (/\b(catalogue|catalog|everything|all products|show all)\b/.test(q)) {
     return listAnswer(CATALOGUE, field, "Our full catalogue");
   }
